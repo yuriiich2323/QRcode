@@ -3,9 +3,9 @@ import base64
 
 def get_csv_download_link():
     csv_content = """ProductName,ProductUrl
-Product A,example.com/productA
-Product B,example.com/productB
-Product C,example.com/productC"""
+Product A,https://example.com/productA
+Product B,https://example.com/productB
+Product C,https://example.com/productC"""
     
     b64 = base64.b64encode(csv_content.encode()).decode()
     href = f'<a href="data:file/csv;base64,{b64}" download="template.csv">CSVテンプレートをダウンロード</a>'
@@ -36,11 +36,11 @@ st.markdown("""
    - CSVファイルの形式：
    ```
    ProductName,ProductUrl
-   Product A,example.com/productA
-   Product B,example.com/productB
+   Product A,https://example.com/productA
+   Product B,https://example.com/productB
    ```
    - 1列目（ProductName）：商品名
-   - 2列目（ProductUrl）：商品のURL（http://やhttps://は自動で追加されます）
+   - 2列目（ProductUrl）：商品のURL（フルパスで指定）
 
 2. **QRコード生成**
    - サイドバーの「QRコード生成」をクリック
@@ -65,7 +65,7 @@ st.markdown("""
 
 ### 注意事項
 - CSVファイルの列名は必ず「ProductName」と「ProductUrl」にしてください
-- URLは有効なものを指定してください
+- URLは必ずフルパス（https://から始まるURL）で指定してください
 - 商品名は日本語でも英語でも使用可能です
 """)
 

@@ -88,9 +88,6 @@ def main():
             df = df.iloc[:, :2]
             df.columns = ['ProductName', 'ProductUrl']
             
-            # URLの形式を確認し修正
-            df['ProductUrl'] = df['ProductUrl'].apply(lambda x: 'https://' + x if not str(x).startswith(('http://', 'https://')) else x)
-            
             # QRコードの生成と表示
             st.write("### 生成されたQRコード")
             
@@ -141,7 +138,7 @@ def main():
         except Exception as e:
             st.error(f"エラーが発生しました: {str(e)}")
             st.write("CSVファイルの形式を確認してください。以下の形式が必要です：")
-            st.code("ProductName,ProductUrl\nProduct A,example.com/productA\nProduct B,example.com/productB")
+            st.code("ProductName,ProductUrl\nProduct A,https://example.com/productA\nProduct B,https://example.com/productB")
 
 if __name__ == "__main__":
     st.set_page_config(page_title="商品QRコード生成", layout="wide")
