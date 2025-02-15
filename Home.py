@@ -1,4 +1,15 @@
 import streamlit as st
+import base64
+
+def get_csv_download_link():
+    csv_content = """商品名,URL
+商品A,example.com/productA
+商品B,example.com/productB
+商品C,example.com/productC"""
+    
+    b64 = base64.b64encode(csv_content.encode()).decode()
+    href = f'<a href="data:file/csv;base64,{b64}" download="template.csv">CSVテンプレートをダウンロード</a>'
+    return href
 
 st.set_page_config(
     page_title="QRコード生成アプリ",
@@ -16,7 +27,13 @@ st.markdown("""
 ### 使用方法
 
 1. **CSVファイルの準備**
-   - 以下の形式でCSVファイルを作成してください：
+   - 以下のテンプレートをダウンロードして編集してください：
+""")
+
+st.markdown(get_csv_download_link(), unsafe_allow_html=True)
+
+st.markdown("""
+   - CSVファイルの形式：
    ```
    商品名,URL
    商品A,example.com/productA
