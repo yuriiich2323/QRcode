@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QRコードリーダー</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>QRコードリーダー</h1>
+        <div class="input-container">
+            <input type="text" id="productName" placeholder="商品名を入力" class="product-input">
+        </div>
+        <div class="reader-container">
+            <video id="video" playsinline></video>
+            <canvas id="canvas" style="display: none;"></canvas>
+        </div>
+        <div id="result" class="result"></div>
+        <div class="data-container">
+            <h2>スキャンしたデータ</h2>
+            <div id="scannedData"></div>
+            <button id="exportCsv" class="export-btn">CSVでエクスポート</button>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
