@@ -77,8 +77,22 @@ def main():
     
     if uploaded_file is not None:
         try:
-            # CSVファイルの読み込み
-            df = pd.read_csv(uploaded_file)
+            # Try different encodings
+            encodings = ['utf-8', 'shift-jis', 'cp932']
+            df = None
+            
+            for encoding in encodings:
+                try:
+                    df = pd.read_csv(uploaded_file, encoding=encoding)
+                    break
+                except UnicodeDecodeError:
+                    continue
+                finally:
+                    uploaded_file.seek(0)
+            
+            if df is None:
+                st.error("CSVファイルのエンコーディングを認識できませんでした。UTF-8またはShift-JISで保存してください。")
+                return
             
             if len(df.columns) < 2:
                 st.error("CSVファイルにはProductNameとProductUrlの2列が必要です")

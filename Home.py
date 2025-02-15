@@ -41,6 +41,7 @@ st.markdown("""
    ```
    - 1列目（ProductName）：商品名
    - 2列目（ProductUrl）：商品のURL（フルパスで指定）
+   - ファイルの文字コード：UTF-8またはShift-JIS
 
 2. **QRコード生成**
    - サイドバーの「QRコード生成」をクリック
@@ -65,8 +66,9 @@ st.markdown("""
 
 ### 注意事項
 - CSVファイルの列名は必ず「ProductName」と「ProductUrl」にしてください
-- URLは必ずフルパス（https://から始まるURL）で指定してください
+- URLは必ずフルパス（https://から始まる完全なURL）で指定してください
 - 商品名は日本語でも英語でも使用可能です
+- CSVファイルはUTF-8またはShift-JISで保存してください
 """)
 
 st.sidebar.success("「QRコード生成」をクリックして開始してください。")
