@@ -34,9 +34,9 @@ def save_to_excel(df, qr_images):
     ws.title = "商品QRコード"
 
     # ヘッダーを設定
-    ws['A1'] = '商品名'
-    ws['B1'] = 'URL'
-    ws['C1'] = 'QRコード'
+    ws['A1'] = 'ProductName'
+    ws['B1'] = 'ProductUrl'
+    ws['C1'] = 'QR Code'
 
     # 列幅を調整
     ws.column_dimensions['A'].width = 30
@@ -45,8 +45,8 @@ def save_to_excel(df, qr_images):
 
     # データを書き込む
     for idx, (_, row) in enumerate(df.iterrows(), start=2):
-        ws.cell(row=idx, column=1, value=row['product_name'])
-        ws.cell(row=idx, column=2, value=row['url'])
+        ws.cell(row=idx, column=1, value=row['ProductName'])
+        ws.cell(row=idx, column=2, value=row['ProductUrl'])
         
         # QRコードを一時ファイルとして保存
         img_buffer = BytesIO()
@@ -81,15 +81,15 @@ def main():
             df = pd.read_csv(uploaded_file)
             
             if len(df.columns) < 2:
-                st.error("CSVファイルには商品名とURLの2列が必要です")
+                st.error("CSVファイルにはProductNameとProductUrlの2列が必要です")
                 return
                 
             # 最初の2列を使用
             df = df.iloc[:, :2]
-            df.columns = ['product_name', 'url']
+            df.columns = ['ProductName', 'ProductUrl']
             
             # URLの形式を確認し修正
-            df['url'] = df['url'].apply(lambda x: 'https://' + x if not str(x).startswith(('http://', 'https://')) else x)
+            df['ProductUrl'] = df['ProductUrl'].apply(lambda x: 'https://' + x if not str(x).startswith(('http://', 'https://')) else x)
             
             # QRコードの生成と表示
             st.write("### 生成されたQRコード")
@@ -102,8 +102,8 @@ def main():
                 
                 # 各商品のQRコード生成
                 for idx, row in df.iterrows():
-                    product_name = row['product_name']
-                    url = row['url']
+                    product_name = row['ProductName']
+                    url = row['ProductUrl']
                     
                     # QRコード生成
                     qr_img = generate_qr_code(url, product_name)
@@ -141,7 +141,7 @@ def main():
         except Exception as e:
             st.error(f"エラーが発生しました: {str(e)}")
             st.write("CSVファイルの形式を確認してください。以下の形式が必要です：")
-            st.code("商品名,URL\n商品A,example.com/productA\n商品B,example.com/productB")
+            st.code("ProductName,ProductUrl\nProduct A,example.com/productA\nProduct B,example.com/productB")
 
 if __name__ == "__main__":
     st.set_page_config(page_title="商品QRコード生成", layout="wide")
